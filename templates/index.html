@@ -1,0 +1,371 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fuel Price Table</title>
+  <!-- Include DataTables CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    
+
+    h2 {
+      color: #343a40;
+      margin-top: 20px;
+    }
+
+    .container {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #fff;
+      width: 80%;
+      max-width: 800px;
+      margin-top: 20px;
+      max-height: 500px; /* Set a maximum height for scroll */
+      overflow-y: auto; /* Enable vertical scrolling */
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th,
+    td {
+      padding: 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    tr {
+      border-bottom: 1px solid #ddd;
+      transition: background-color 0.3s;
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    @media screen and (max-width: 768px) {
+      table,
+      thead,
+      tbody,
+      th,
+      td,
+      tr {
+        display: block;
+      }
+
+      th {
+        display: none;
+      }
+
+      td {
+        margin-bottom: 10px;
+        border: none;
+        position: relative;
+      }
+
+      td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        padding-right: 10px;
+        box-sizing: border-box;
+        text-align: right;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Placeholder content around the table -->
+
+  <div class="container">
+    <h2>Hey Pal!👋🏻</h2>
+
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for cities.." title="Type in a city">
+
+    <table id="myTable">
+      <thead>
+        <tr>
+          <th>City</th>
+          <th>Petrol</th>
+          <th>Diesel</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for record in data %}
+        <tr>
+          <td data-label="City">{{ record.city_name }}</td>
+          <td data-label="Petrol">{{ record.petrol_price }}</td>
+          <td data-label="Diesel">{{ record.diesel_price }}</td>
+        </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+  <script>
+
+    function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+  </script>
+
+</body>
+
+</html> {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fuel Price Table</title>
+  <!-- Include DataTables CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h2 {
+      color: #343a40;
+      margin-top: 20px;
+    }
+
+    .container {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #fff;
+      width: 80%;
+      max-width: 800px;
+      margin-top: 20px;
+      max-height:100vh;
+      padding:50px;
+      border-radius:30px
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th,
+    td {
+      padding: 15px;
+      text-align: left;
+    }
+
+    {% comment %} tr td:first-child,tr th:first-child  {
+        width: 60%
+    }
+    tr td:not(:first-child),tr th:not(:first-child) {
+        width: 20%
+    }  {% endcomment %}
+
+    th {
+      background-color: #007bff;
+      color: white;
+      position: sticky;
+      top: 0;
+    }
+
+    tr {
+      border-bottom: 1px solid #ddd;
+      transition: background-color 0.3s;
+
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    @media screen and (max-width: 768px) {
+        .container, body{
+            margin:0
+        }
+      table,
+      thead,
+      tbody,
+      th,
+      td,
+      tr {
+        display: block;
+      }
+
+      th {
+        display: none;
+      }
+
+      td {
+        margin-bottom: 10px;
+        border: none;
+        position: relative;
+        padding-left: 50%; /* Adjusted padding for better alignment */
+      }
+
+      td:before{
+        content: attr(data-label);
+        font-weight: bold;
+        position: absolute;
+        top: 13px;
+        left: 0;
+        width: 50%;
+        padding-left: 20px;
+        box-sizing: border-box;
+      }
+    }
+    .table-body{
+        overflow-y:auto;
+        height:50vh;
+        display:block
+
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <div class="container">
+    <h2>Hey Pal!👋🏻</h2>
+
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for cities.." title="Type in a city">
+
+    <table >
+      <thead>
+        <tr>
+          <th style="width: 59% !important;">City</th>
+          <th>Petrol</th>
+          <th>Diesel</th>
+        </tr>
+      </thead>
+    </table>
+    <div class="table-body">
+        
+        <table id="myTable">
+          <tbody>
+            {% for record in data %}
+            <tr>
+              <td data-label="City">{{ record.city_name }}</td>
+              <td data-label="Petrol">{{ record.petrol_price }}</td>
+              <td data-label="Diesel">{{ record.diesel_price }}</td>
+            </tr>
+            {% endfor %}
+    
+          </tbody>
+        </table>
+
+    </div>
+  </div>
+
+  <!-- Placeholder content around the table -->
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+  <script>
+
+    var fuelData = {{ data|safe }};
+    console.log(fuelData)
+
+    function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+  </script>
+
+</body>
+
+</html>
+
+
