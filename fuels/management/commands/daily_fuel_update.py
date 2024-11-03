@@ -36,7 +36,7 @@ class Command(BaseCommand):
             print("successfully inserted record")  
 
             
-            time.sleep(3600*12)    
+            time.sleep(3600*4)    
 
 
     def Petrol_price(self):
